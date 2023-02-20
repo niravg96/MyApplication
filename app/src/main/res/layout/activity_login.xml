@@ -4,27 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundimage2"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/backgroundimage2">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbarlayout"
+        android:id="@+id/appbarlayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:navigationIcon="?attr/homeAsUpIndicator"
-            android:background="#e3e6e4">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:background="#e3e6e4">
 
-        </androidx.appcompat.widget.Toolbar>
-
-
+    </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <ImageView
@@ -34,13 +32,12 @@
         app:srcCompat="@drawable/login"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbarlayout"/>
-
+        app:layout_constraintTop_toBottomOf="@+id/appbarlayout2"/>
 
     <EditText
-        android:id="@+id/edittextemailaddress"
+        android:id="@+id/edittext_emailaddress_login"
         android:layout_width="350dp"
-        android:layout_margin="15dp"
+        android:layout_marginTop="100dp"
         android:hint="     Email Address"
         android:elevation="2dp"
         android:layout_height="50dp"
@@ -48,48 +45,24 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image1" />
-    <EditText
-        android:id="@+id/edittextusername"
-        android:layout_width="350dp"
-        android:background="@drawable/editext_design2"
-        android:layout_margin="15dp"
-        android:hint="     Username"
-        android:layout_height="50dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittextemailaddress" />
-    <EditText
-        android:id="@+id/edittextmobileno"
-        android:layout_width="350dp"
-        android:layout_margin="15dp"
-        android:background="@drawable/editext_design2"
-        android:hint="     Mobile No"
-        android:layout_height="50dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittextusername" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etpasswordlayout"
+        android:id="@+id/etpasswordlayout2"
         app:passwordToggleEnabled="true"
         android:layout_margin="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:shadowColor="#000"
-        android:shadowDx="-2"
-        android:shadowDy="-2"
-        android:shadowRadius="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittextmobileno">
+        app:layout_constraintTop_toBottomOf="@+id/edittext_emailaddress_login">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edittextpassword"
+            android:id="@+id/edittext_password_login"
             android:layout_width="350dp"
             android:layout_height="50dp"
             android:layout_margin="15dp"
             android:background="@drawable/editext_design2"
-            android:hint="     Password"
+            android:hint="    Password"
             android:inputType="textPassword"
             android:shadowColor="#000"
             android:shadowDx="-2"
@@ -97,27 +70,27 @@
             android:shadowRadius="1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edittextmobileno" />
+            app:layout_constraintTop_toBottomOf="@+id/edittextemailaddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/registerbutton"
-        android:layout_width="200dp"
-        android:layout_margin="15dp"
-        android:background="@drawable/editext_design3"
-        android:text="REGISTER"
-        android:textSize="17dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etpasswordlayout" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/login_button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@drawable/editext_design3"
+            android:text="Login"
+            android:textSize="17dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etpasswordlayout2" />
 
     <LinearLayout
         android:id="@+id/l1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/registerbutton"
+        app:layout_constraintTop_toBottomOf="@+id/loginbutton"
         app:layout_constraintLeft_toLeftOf="parent"
         android:orientation="horizontal"
         app:layout_constraintRight_toRightOf="parent">
@@ -126,7 +99,7 @@
             android:id="@+id/linkforlogin"
             android:layout_width="wrap_content"
             android:layout_margin="15dp"
-            android:text="Already Have an Account ?"
+            android:text="Don't have an Account ?"
             android:textSize="15dp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -137,7 +110,7 @@
             android:id="@+id/linkforlogin2"
             android:layout_width="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Login Here"
+            android:text="Sign Up"
             android:textSize="15dp"
             android:textStyle="bold"
             android:textColor="@color/yellow"
@@ -146,23 +119,11 @@
             app:layout_constraintTop_toBottomOf="@+id/registerbutton" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textviewforregister"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Register With"
-        android:textSize="25dp"
-        android:textColor="#111111"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/l1" />
-
     <LinearLayout
         android:id="@+id/l2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/textviewforregister"
+        app:layout_constraintTop_toBottomOf="@+id/l1"
         app:layout_constraintLeft_toLeftOf="parent"
         android:orientation="horizontal"
         app:layout_constraintRight_toRightOf="parent">
@@ -213,8 +174,3 @@
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--  android:shadowColor="#000"
-           android:shadowDx="-2"
-           android:shadowDy="-2"
-           android:shadowRadius="1"-->
