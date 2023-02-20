@@ -7,9 +7,13 @@
         android:width="2dp"></stroke>
 
     <corners
-        android:radius="30dp"/>
+        android:radius="30dp"
+       />
     <solid
-        android:color="@color/white"></solid>
+        android:color="@color/white"
+        ></solid>
+
+
 
 
 </shape>
