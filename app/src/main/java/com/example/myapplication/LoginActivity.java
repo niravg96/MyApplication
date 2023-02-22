@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,10 +33,16 @@ public class LoginActivity extends AppCompatActivity {
     String email_login = email.getText().toString().trim();
     String password_login = pasword.getText().toString().trim();
 
+=======
+
+public class LoginActivity extends AppCompatActivity {
+
+>>>>>>> origin/master
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+<<<<<<< HEAD
 
         email =findViewById(R.id.edittext_emailaddress_login);
         pasword =findViewById(R.id.edittext_password_login);
@@ -163,5 +170,7 @@ public class LoginActivity extends AppCompatActivity {
         };
         RequestQueue requestquese = Volley.newRequestQueue(getApplicationContext());
         requestquese.add(stringRequest);
+=======
+>>>>>>> origin/master
     }
 }
