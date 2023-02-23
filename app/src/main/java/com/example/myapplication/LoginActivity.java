@@ -2,12 +2,14 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,42 +31,44 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText email,pasword;
     Button loginbutton;
+    TextView signuptv;
+    String email_login,password_login;
 
-    String email_login = email.getText().toString().trim();
-    String password_login = pasword.getText().toString().trim();
-
-=======
-
-public class LoginActivity extends AppCompatActivity {
-
->>>>>>> origin/master
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-<<<<<<< HEAD
 
         email =findViewById(R.id.edittext_emailaddress_login);
-        pasword =findViewById(R.id.edittext_password_login);
-
+        pasword =findViewById(R.id.edittextpassword);
+        signuptv =findViewById(R.id.linkforlogin2);
         loginbutton =findViewById(R.id.login_button);
 
-        String email_login = email.getText().toString().trim();
-        String password_login = pasword.getText().toString().trim();
+        email_login = email.getText().toString().trim();
+        password_login = pasword.getText().toString().trim();
 
-        loginbutton.setOnClickListener(new View.OnClickListener() {
+        signuptv.setOnClickListener(new View.OnClickListener() {  // CLICK EVENT OF SIGN UP (LINK OF SIGN UP)
+            @Override
+            public void onClick(View v) {
+
+                Intent i =new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+        loginbutton.setOnClickListener(new View.OnClickListener() {  // CLICK EVENT OF SIGN IN
             @Override
             public void onClick(View v) {
 
                 try
                 {
-                    if(email_login.isEmpty() || password_login.isEmpty())
+                    if(email.getText().toString().length() > 0 && pasword.getText().toString().length() > 0)
                     {
-                        Toast.makeText(LoginActivity.this, "Please Enter All Details", Toast.LENGTH_SHORT).show();
+                        token();
                     }
                     else
                     {
-                        token();
+                        Toast.makeText(LoginActivity.this, "Please Enter All Details", Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch(Exception e)
@@ -74,26 +78,33 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
     }
     private void postlogindata(String access_token)
     {
         try
         {
             String url = "https://admin.p9bistro.com/index.php/SignIn";
+
             RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+
             StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                 @Override
-                public void onResponse(String response) {
+                public void onResponse(String response)
+                {
 
-                    email.setText("");
-                    pasword.setText("");
-                    try {
+                    try
+                    {
+
                         JSONObject resobj = new JSONObject(response);
-                        String email = resobj.getString("email");
+                        String email2 = resobj.getString("email");
                         String mobile_no = resobj.getString("mobile_no");
+
                         Toast.makeText(LoginActivity.this, "Log In Successfully", Toast.LENGTH_SHORT).show();
-                        Log.e("Check", email + mobile_no);
+
+                        email.setText("");
+                        pasword.setText("");
+
+                        Log.e("Check", email2 + mobile_no);
 
                     } catch (JSONException ex) {
                         ex.printStackTrace();
@@ -166,11 +177,8 @@ public class LoginActivity extends AppCompatActivity {
                     headers.put("x-api-key","XABRTYUX@123YTUFGB");
                     return headers;
                 }
-
         };
         RequestQueue requestquese = Volley.newRequestQueue(getApplicationContext());
         requestquese.add(stringRequest);
-=======
->>>>>>> origin/master
     }
 }

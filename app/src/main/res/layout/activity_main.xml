@@ -7,6 +7,24 @@
     android:background="@drawable/backgroundimage2"
     tools:context=".MainActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarlayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            android:background="#e3e6e4">
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ImageView
         android:id="@+id/image1"
         android:layout_width="80dp"
@@ -14,13 +32,14 @@
         app:srcCompat="@drawable/login"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/appbarlayout2"/>
 
     <EditText
         android:id="@+id/edittextemailaddress"
         android:layout_width="350dp"
         android:layout_margin="15dp"
-        android:hint="     Email Address"
+        android:hint="Email Address"
+        android:paddingLeft="15dp"
         android:layout_height="50dp"
         android:background="@drawable/editext_design2"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -30,9 +49,9 @@
         android:id="@+id/edittextusername"
         android:layout_width="350dp"
         android:background="@drawable/editext_design2"
+        android:paddingLeft="15dp"
         android:layout_margin="15dp"
-        android:hint="     Username"
-        android:hintColor="@color/black"
+        android:hint="Username"
         android:layout_height="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -42,23 +61,40 @@
         android:layout_width="350dp"
         android:layout_margin="15dp"
         android:background="@drawable/editext_design2"
-        android:hint="     Mobile No"
-        android:hintColor="@color/black"
+        android:hint="Mobile No"
+        android:paddingLeft="15dp"
+        android:inputType="phone"
         android:layout_height="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edittextusername" />
-    <EditText
-        android:id="@+id/edittextpassword"
-        android:layout_width="350dp"
-        android:background="@drawable/editext_design2"
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/etpasswordlayout"
+        app:passwordToggleEnabled="true"
         android:layout_margin="15dp"
-        android:hint="    Password"
-        android:hintColor="@color/black"
-        android:layout_height="50dp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittextmobileno" />
+        app:layout_constraintTop_toBottomOf="@+id/edittextmobileno">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittextpassword"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/editext_design2"
+            android:paddingLeft="15dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edittextmobileno" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/registerbutton"
@@ -70,7 +106,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittextpassword" />
+        app:layout_constraintTop_toBottomOf="@+id/etpasswordlayout" />
 
     <LinearLayout
         android:id="@+id/l1"
@@ -78,7 +114,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/registerbutton"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:orientation="center_horizontal"
+        android:orientation="horizontal"
         app:layout_constraintRight_toRightOf="parent">
 
         <TextView
