@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,8 +18,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,10 +29,13 @@ import org.json.JSONObject;
 import java.lang.ref.ReferenceQueue;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText email,pasword;
+    EditText email;
+    TextInputEditText password;
     Button loginbutton;
     TextView signuptv;
     String email_login,password_login;
@@ -40,12 +46,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         email =findViewById(R.id.edittext_emailaddress_login);
-        pasword =findViewById(R.id.edittextpassword);
+        password =findViewById(R.id.edittextpasswordlogin);
         signuptv =findViewById(R.id.linkforlogin2);
         loginbutton =findViewById(R.id.login_button);
 
-        email_login = email.getText().toString().trim();
-        password_login = pasword.getText().toString().trim();
+
 
         signuptv.setOnClickListener(new View.OnClickListener() {  // CLICK EVENT OF SIGN UP (LINK OF SIGN UP)
             @Override
@@ -62,9 +67,36 @@ public class LoginActivity extends AppCompatActivity {
 
                 try
                 {
-                    if(email.getText().toString().length() > 0 && pasword.getText().toString().length() > 0)
+
+                    email_login = email.getText().toString().trim();
+                    password_login = password.getText().toString().trim();
+
+                    if(email.getText().toString().length() > 0 && password.getText().toString().length() > 0)
                     {
-                        token();
+                        if(Patterns.EMAIL_ADDRESS.matcher(email_login).matches())
+                        {
+                            if(password.getText().toString().length() < 8)
+                            {
+                                Toast.makeText(getApplicationContext(),"Provide Password Length above 8",Toast.LENGTH_LONG).show();
+                            }
+                            else if(!isValidPassword(password_login))
+                            {
+                                Toast.makeText(getApplicationContext(),"Password is not as criteria",Toast.LENGTH_LONG).show();
+                            }
+                            else if(password.getText().toString().length() > 24)
+                            {
+                                Toast.makeText(getApplicationContext(),"Provide Password Length equal to 24",Toast.LENGTH_LONG).show();
+                            }
+                            else
+                            {
+                                token();
+                            }
+                            // valid email address
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(),"Please Enter valid Email address",Toast.LENGTH_LONG).show();
+                        }
                     }
                     else
                     {
@@ -86,27 +118,48 @@ public class LoginActivity extends AppCompatActivity {
             String url = "https://admin.p9bistro.com/index.php/SignIn";
 
             RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+            Log.e("Error ","2");
+            JSONObject req = new JSONObject();
 
-            StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            try
+            {
+                req.put("email",email.getText().toString());  // DATA OF field which we will enter while doing sign in
+                req.put("password",password.getText().toString());
+
+                req.put("login_by", 5);
+            }
+            catch(Exception ex)
+            {
+                Toast.makeText( LoginActivity.this, "Exception : "+ex, Toast.LENGTH_SHORT).show();
+            }
+
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url,req, new Response.Listener<JSONObject>() {
                 @Override
-                public void onResponse(String response)
+                public void onResponse(JSONObject response)
                 {
-
                     try
                     {
+                        if(response.getBoolean("status"))
+                        {
 
-                        JSONObject resobj = new JSONObject(response);
-                        String email2 = resobj.getString("email");
-                        String mobile_no = resobj.getString("mobile_no");
+                            String message = response.getString("message");
+                            Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
 
-                        Toast.makeText(LoginActivity.this, "Log In Successfully", Toast.LENGTH_SHORT).show();
 
-                        email.setText("");
-                        pasword.setText("");
+                            /*String email2 = resobj.getString("email");
+                            String mobile_no = resobj.getString("mobile_no");*/
 
-                        Log.e("Check", email2 + mobile_no);
+                          /*  Toast.makeText(LoginActivity.this, "Log In Successfully", Toast.LENGTH_SHORT).show();*/
 
-                    } catch (JSONException ex) {
+                            email.setText("");
+                            password.setText("");
+
+                           /* Log.e("Check", email2 + mobile_no);*/
+                        }
+                        email.setText("");password.setText("");
+
+
+                    } catch (Exception ex) {
                         ex.printStackTrace();
 
                     }
@@ -117,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Fail to get Response : "+error, Toast.LENGTH_SHORT).show();
                 }
             }){
-                @Override
+              /*  @Override
                 protected Map<String,String>getParams()
                 {
                     Map<String,String> params = new HashMap<String,String>();
@@ -125,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
                     params.put("password",password_login);
                     params.put("login_by", String.valueOf(5));
                     return params;
-                }
+                }*/
                 @Override
                 public Map<String,String>getHeaders()throws AuthFailureError
                 {
@@ -180,5 +233,32 @@ public class LoginActivity extends AppCompatActivity {
         };
         RequestQueue requestquese = Volley.newRequestQueue(getApplicationContext());
         requestquese.add(stringRequest);
+    }
+    public void emailvalidator(EditText email)
+    {
+        String emailtotext = email.getText().toString();
+
+        // Android offers the inbuilt patterns which the entered
+        // data from the EditText field needs to be compared with
+        // In this case the entered data needs to compared with
+        // the EMAIL_ADDRESS, which is implemented same below
+        if(!emailtotext.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailtotext).matches())
+        {
+                // valid email address
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(),"Please Enter valid Email address",Toast.LENGTH_LONG).show();
+        }
+    }
+    public static boolean isValidPassword(final String password)  // 1 number , 1 Uppercase , 1 special symbol
+    {
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
     }
 }

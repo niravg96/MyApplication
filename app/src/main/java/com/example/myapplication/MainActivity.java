@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity
                     {
                         Log.e("Error ","3");
 
-
                         if(response.getBoolean("status"))
                         {
                             Log.e("Error ","4");
